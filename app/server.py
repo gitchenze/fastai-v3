@@ -63,6 +63,14 @@ async def analyze(request):
     prediction = learn.predict(img)[0]
     return JSONResponse({'result': str(prediction)})
 
+@app.route('/analyze_img', methods=['POST'])
+async def analyze_img(request):
+    img_data = await request.form()
+
+    img = open_image(img_data['file'])
+    prediction = learn.predict(img)[0]
+    return JSONResponse({'result': str(prediction)})
+
 
 if __name__ == '__main__':
     if 'serve' in sys.argv:
